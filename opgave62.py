@@ -3,10 +3,15 @@ import pygame
 WIDTH = 1000
 HEIGHT = 600
 
+# definitions Teams
+teamname1 = "Stokkem"
+teamname2 = "Maaseik"
 teamscore1 = 0
 teamscore2 = 0
 teamgame1 = 0
 teamgame2 = 0
+
+# max rounds per set
 set_score = 5
 
 pygame.init()
@@ -43,9 +48,7 @@ while running:
 
     screen.fill("black")
 
-    # definitions Teams
-    teamname1 = "Ospel"
-    teamname2 = "Maaseik"
+
     
     # Teamnames render
     team1 = fonttext.render(teamname1, True, "#EB5E0C")
@@ -54,9 +57,13 @@ while running:
     screen.blit(team2, (690, 300))
 
     # Teamlogo's render
+    imageStokkem = pygame.image.load(r'.\images\logo dilen-stokkem.png')
+    imageStokkem = pygame.transform.scale(imageStokkem, (300, 175))
+    screen.blit(imageStokkem, (33, 80))
+
     imageMaaseik = pygame.image.load(r'.\images\logo maaseik.png')
     imageMaaseik = pygame.transform.scale(imageMaaseik, (200, 200))
-    screen.blit(imageMaaseik, (0, 0))
+    screen.blit(imageMaaseik, (700, 60))
 
     # Teamrounds render
     teamnumber1 = font.render(str(teamscore1), True, "white")
