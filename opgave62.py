@@ -53,6 +53,11 @@ while running:
     team2 = fonttext.render(teamname2, True, "#EB5E0C")
     screen.blit(team2, (690, 300))
 
+    # Teamlogo's render
+    imageMaaseik = pygame.image.load(r'.\images\logo maaseik.png')
+    imageMaaseik = pygame.transform.scale(imageMaaseik, (200, 200))
+    screen.blit(imageMaaseik, (0, 0))
+
     # Teamrounds render
     teamnumber1 = font.render(str(teamscore1), True, "white")
     screen.blit(teamnumber1, (150, 450))
