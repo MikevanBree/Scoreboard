@@ -6,8 +6,10 @@ HEIGHT = 600
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-# TODO: Laad hier je font
-font = pygame.font.SysFont("montserrat", 86)
+
+fonttext = pygame.font.SysFont("opensans", 80)
+font = pygame.font.SysFont("opensans", 100)
+fontsmall = pygame.font.SysFont("opensans", 65)
 
 running = True
 while running:
@@ -19,11 +21,25 @@ while running:
 
     teamname1 = "Ospel"
     teamname2 = "Maaseik"
-    # TODO: Render hier de tekst en toon op het scherm
-    team1 = font.render(teamname1, True, "#EB5E0C")
-    screen.blit(team1, (25, 250))
+    teamscore1 = str(0)
+    teamscore2 = str(0)
+    teamgame1 = str(0)
+    teamgame2 = str(0)
+    
+    team1 = fonttext.render(teamname1, True, "#EB5E0C")
+    screen.blit(team1, (75, 300))
+    team2 = fonttext.render(teamname2, True, "#EB5E0C")
+    screen.blit(team2, (690, 300))
 
-    team2 = font.render(teamname2, True, "#EB5E0C")
-    screen.blit(team2, (740, 250))
+
+    teamnumber1 = font.render(teamscore1, True, "white")
+    screen.blit(teamnumber1, (150, 450))
+    teamnumber2 = font.render(teamscore2, True, "white")
+    screen.blit(teamnumber2, (800, 450))
+
+    teamset1 = fontsmall.render(teamgame1, True, "white")
+    screen.blit(teamset1, (250, 450))
+    teamset2 = fontsmall.render(teamgame2, True, "white")
+    screen.blit(teamset2, (700, 450))
 
     pygame.display.flip()
