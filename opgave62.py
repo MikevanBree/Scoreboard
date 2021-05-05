@@ -60,7 +60,6 @@ while running:
     imageStokkem = pygame.image.load(r'.\images\logo dilen-stokkem.png')
     imageStokkem = pygame.transform.scale(imageStokkem, (300, 175))
     screen.blit(imageStokkem, (33, 80))
-
     imageMaaseik = pygame.image.load(r'.\images\logo maaseik.png')
     imageMaaseik = pygame.transform.scale(imageMaaseik, (200, 200))
     screen.blit(imageMaaseik, (700, 60))
