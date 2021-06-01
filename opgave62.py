@@ -1,11 +1,15 @@
 import pygame
+import configparser
 
-WIDTH = 1000
-HEIGHT = 600
+config = configparser.ConfigParser()
+config.read("config.ini")
+
+HEIGHT = config["DEFAULT"].getint("Height")
+WIDTH = config["DEFAULT"].getint("Width")
 
 # definitions Teams
-teamname1 = "Stokkem"
-teamname2 = "Maaseik"
+teamname1 = config["TeamA"]["naam"]
+teamname2 = config["TeamB"]["naam"]
 teamscore1 = 0
 teamscore2 = 0
 teamgame1 = 0
@@ -18,9 +22,9 @@ pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # fonts
-fonttext = pygame.font.SysFont("opensans", 80)
-font = pygame.font.SysFont("opensans", 100)
-fontsmall = pygame.font.SysFont("opensans", 65)
+fonttext = pygame.font.SysFont("verdana", 80)
+font = pygame.font.SysFont("verdana", 100)
+fontsmall = pygame.font.SysFont("verdana", 65)
 
 running = True
 while running:
@@ -57,12 +61,12 @@ while running:
     screen.blit(team2, (690, 300))
 
     # Teamlogo's render
-    imageStokkem = pygame.image.load(r'.\images\logo dilen-stokkem.png')
-    imageStokkem = pygame.transform.scale(imageStokkem, (300, 175))
-    screen.blit(imageStokkem, (33, 80))
-    imageMaaseik = pygame.image.load(r'.\images\logo maaseik.png')
-    imageMaaseik = pygame.transform.scale(imageMaaseik, (200, 200))
-    screen.blit(imageMaaseik, (700, 60))
+    image1 = pygame.image.load(config["TeamA"]["Logo"])
+    image1 = pygame.transform.scale(image1, (300, 175))
+    screen.blit(image1, (33, 80))
+    image2 = pygame.image.load(config["TeamB"]["Logo"])
+    image2 = pygame.transform.scale(image2, (200, 200))
+    screen.blit(image2, (700, 60))
 
     # Teamrounds render
     teamnumber1 = font.render(str(teamscore1), True, "white")
