@@ -5,8 +5,8 @@ import time
 config = configparser.ConfigParser()
 config.read("config.ini")
 
-HEIGHT = config["DEFAULT"].getint("Height")
-WIDTH = config["DEFAULT"].getint("Width")
+HEIGHT = config["DEFAULT"].getint("height")
+WIDTH = config["DEFAULT"].getint("width")
 
 # definitions Teams
 teamname1 = config["TeamA"]["naam"]
@@ -23,10 +23,10 @@ pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # fonts
-fonttext = pygame.font.SysFont("verdana", 80)
-fontrounds = pygame.font.Font("CursedTimerUlil-Aznm.ttf", 100)
+fontname = pygame.font.SysFont("verdana", 30)
+fontrounds = pygame.font.Font("CursedTimerUlil-Aznm.ttf", 130)
 fontsets = pygame.font.Font("CursedTimerUlil-Aznm.ttf", 65)
-fonttimer = pygame.font.Font("CursedTimerUlil-Aznm.ttf", 40)
+fonttimer = pygame.font.Font("CursedTimerUlil-Aznm.ttf", 50)
 
 passed_time = 0
 timer_started = False
@@ -47,10 +47,16 @@ while running:
                 teamgame1 = 0
                 teamgame2 = 0
                 set_score = 5
-            elif event.key == pygame.K_RIGHT:
-                teamscore1 = teamscore1 + 1
+                print("Time stopped at:")
+                print(passed_time)
+                timer_started = False
+                passed_time = 0
             elif event.key == pygame.K_LEFT:
-                teamscore2 = teamscore2 + 1
+                if timer_started:
+                    teamscore1 = teamscore1 + 1
+            elif event.key == pygame.K_RIGHT:
+                if timer_started:
+                    teamscore2 = teamscore2 + 1
     if timer_started:
         passed_time = pygame.time.get_ticks() - start_time
     
@@ -65,23 +71,28 @@ while running:
 
     screen.fill("black")
 
+    # background render
+    background = pygame.image.load(config["DEFAULT"]["background"])
+    background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+    screen.blit(background, (0, 0))
+
     # timer render
     timer = fonttimer.render(str(passed_time/1000), True, "yellow")
-    screen.blit(timer, (450, 300))
+    screen.blit(timer, (430, 165))
     
     # Teamnames render
-    team1 = fonttext.render(teamname1, True, "#EB5E0C")
-    screen.blit(team1, (75, 300))
-    team2 = fonttext.render(teamname2, True, "#EB5E0C")
-    screen.blit(team2, (690, 300))
+    team1 = fontname.render(teamname1, True, "#EB5E0C")
+    screen.blit(team1, (150, 310))
+    team2 = fontname.render(teamname2, True, "#EB5E0C")
+    screen.blit(team2, (725, 310))
 
     # Teamlogo's render
     image1 = pygame.image.load(config["TeamA"]["Logo"])
-    image1 = pygame.transform.scale(image1, (300, 300))
-    screen.blit(image1, (33, 80))
+    image1 = pygame.transform.smoothscale(image1, (200, 200))
+    screen.blit(image1, (100, 80))
     image2 = pygame.image.load(config["TeamB"]["Logo"])
-    image2 = pygame.transform.scale(image2, (200, 200))
-    screen.blit(image2, (700, 60))
+    image2 = pygame.transform.smoothscale(image2, (200, 200))
+    screen.blit(image2, (700, 80))
 
     # Teamrounds render
     teamnumber1 = fontrounds.render(str(teamscore1), True, "white")
@@ -91,8 +102,8 @@ while running:
 
     #Team sets render
     teamset1 = fontsets.render(str(teamgame1), True, "white")
-    screen.blit(teamset1, (250, 450))
+    screen.blit(teamset1, (410, 375))
     teamset2 = fontsets.render(str(teamgame2), True, "white")
-    screen.blit(teamset2, (700, 450))
+    screen.blit(teamset2, (575, 375))
 
     pygame.display.flip()
