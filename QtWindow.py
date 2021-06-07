@@ -7,9 +7,11 @@ config.read("config.ini")
 logofile1 = config["TeamA"]["logo"]
 logofile2 = config["TeamB"]["logo"]
 def openLogo1():
+    global logofile1
     logofile1 = QtWidgets.QFileDialog.getOpenFileName()[0]
 
 def openLogo2():
+    global logofile2
     logofile2 = QtWidgets.QFileDialog.getOpenFileName()[0]
 
 
