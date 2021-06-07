@@ -87,10 +87,10 @@ while running:
     screen.blit(team2, (725, 310))
 
     # Teamlogo's render
-    image1 = pygame.image.load(config["TeamA"]["Logo"])
+    image1 = pygame.image.load(config["TeamA"]["logo"])
     image1 = pygame.transform.smoothscale(image1, (200, 200))
     screen.blit(image1, (100, 80))
-    image2 = pygame.image.load(config["TeamB"]["Logo"])
+    image2 = pygame.image.load(config["TeamB"]["logo"])
     image2 = pygame.transform.smoothscale(image2, (200, 200))
     screen.blit(image2, (700, 80))
 
