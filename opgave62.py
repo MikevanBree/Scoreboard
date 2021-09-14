@@ -1,6 +1,7 @@
 import pygame
 import configparser
 import time
+from game import Game
 
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -15,6 +16,8 @@ teamscore1 = 0
 teamscore2 = 0
 teamgame1 = 0
 teamgame2 = 0
+
+game = Game()
 
 # max rounds per set
 set_score = 5
@@ -42,32 +45,35 @@ while running:
                 if timer_started:
                     start_time = pygame.time.get_ticks()
             elif event.key == pygame.K_r:
-                teamscore1 = 0
-                teamscore2 = 0
-                teamgame1 = 0
-                teamgame2 = 0
-                set_score = 5
+                game.points_away = 0
+                game.points_home = 0
+                game.sets_away = 0
+                game.sets_home = 0
                 print("Time stopped at:")
                 print(passed_time)
                 timer_started = False
                 passed_time = 0
             elif event.key == pygame.K_LEFT:
                 if timer_started:
-                    teamscore1 = teamscore1 + 1
+                    game.score("H")
             elif event.key == pygame.K_RIGHT:
                 if timer_started:
-                    teamscore2 = teamscore2 + 1
+                    game.score("A")
     if timer_started:
         passed_time = pygame.time.get_ticks() - start_time
     
-    if teamscore1 >= set_score:
-        teamscore1 = 0
-        teamscore2 = 0
-        teamgame1 = teamgame1 + 1
-    if teamscore2 >= set_score:
-        teamscore2 = 0
-        teamscore1 = 0
-        teamgame2 = teamgame2 + 1
+
+    # Count Sets
+    if game.points_home >= set_score:
+        game.points_home = 0
+        game.points_away = 0
+        game.sets_home += 1
+    if game.points_away >= set_score:
+        game.points_away = 0
+        game.points_home = 0
+        game.sets_away += 1
+
+
 
     screen.fill("black")
 
@@ -95,15 +101,15 @@ while running:
     screen.blit(image2, (700, 80))
 
     # Teamrounds render
-    teamnumber1 = fontrounds.render(str(teamscore1), True, "white")
+    teamnumber1 = fontrounds.render(str(game.points_home), True, "white")
     screen.blit(teamnumber1, (150, 450))
-    teamnumber2 = fontrounds.render(str(teamscore2), True, "white")
+    teamnumber2 = fontrounds.render(str(game.points_away), True, "white")
     screen.blit(teamnumber2, (800, 450))
 
     #Team sets render
-    teamset1 = fontsets.render(str(teamgame1), True, "white")
+    teamset1 = fontsets.render(str(game.sets_home), True, "white")
     screen.blit(teamset1, (410, 375))
-    teamset2 = fontsets.render(str(teamgame2), True, "white")
+    teamset2 = fontsets.render(str(game.sets_away), True, "white")
     screen.blit(teamset2, (575, 375))
 
     pygame.display.flip()
