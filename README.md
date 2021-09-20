@@ -1,3 +1,0 @@
-# Scoreboard
-
-### Own made Scoreboard
